@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+   <head>
+        <style>
+        body{position:relative;width:95%;height:100%;left:1.5%;margin-top:2%;}
+		#header{position:relative;width:100%;border-style:dotted;}
+		#prodNameDrop{position:relative;width:96%;left:1%;height:70px;border-style:dotted;}
+		h3{position:relative;margin-top:0px;margin-bottom:0px;top:6px;text-align:center;}
+		h4{position:relative;margin-top:0px;margin-bottom:0px;top:6px;text-align:center;size:10px;}
+		#prodImgDrop{position:relative;width:auto;left:1%;height:auto;border-style:dotted;margin-top: 10px;}
+		#ingred{position: relative;width: 50%;height: 100%;display: inline-block;float:right;margin-top: 10px;right:2%;}
+		
+		#bod{position:relative;width:100%;height:100%;border-style:dotted;margin-top: 10px;}
+		#nutrients{position:relative;width:100%;height:100%}
+		
+		#footer{position: relative;width: 100%;height: 70px;top: 10px;}
+		#backToScan{border: none;box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);color: white;padding: 15px 32px;text-align: left;text-decoration: none;display: inline-block;font-size: 16px;width: 115px;cursor: pointer;background-color: #008CBA;height:50px;}
+        </style>
+	</head>
+	<body>
+	
+	<div id="header">
+	
+			<h3 id="prodNameDrop">Product Name Here</h3>
+
+			<img id="prodImgDrop" src="front.11.200.jpg"></img>
+			<section id="ingred">
+<table border="1">
+<tr>
+<td><u>Ingredients</u></td>
+</tr>
+<tr>
+<td id="ingredients"></td>
+</tr>
+</table>
+		</section>
+	</div><!--end header-->
+	
+	<div id="bod">
+		<section id="nutrients">
+<table border="1">
+<tr>
+<td><u>Nutrient Levels</u></td>
+</tr>
+<tr>
+<td>Saturated-fat</td>
+<td id="satfat"></td>
+</tr>
+<tr>
+<td>Sugars</td>
+<td id="sugar"></td>
+</tr>
+<tr>
+<td>Salt</td>
+<td id="salt"></td>
+</tr>
+<tr>
+<td>Fat</td>
+<td id="fat"></td>
+</tr>
+</table>
+		</section>
+
+	</div><!--end bod-->
+	
+	<div id="footer">
+		<section id="back">
+			<input id="backToScan" type="button" value="rescan" onclick="templateSelector('camera');"/>
+		</section>
+	</div><!--end footer-->
+	
+	</body>
+</html>

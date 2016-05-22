@@ -1,0 +1,21 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.A3"
+        },
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "com.A3"
+        },
+        "cordova-plugin-barcodescanner": {
+            "PACKAGE_NAME": "com.A3"
+        }
+    },
+    "dependent_plugins": {}
+}

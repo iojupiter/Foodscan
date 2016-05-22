@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <title>Foodscan</title>
+        
+        
+    <template id="homepage">
+    <head>
+        <style>
+        #h{position:relative;width:100%;}
+        h1{position:relative;font-size:48px;}
+        p{text-align:center}
+		#info{position:relative;width:100%;height:100%;margin-top:100px;}
+        #userSubmit{border: none;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width: 100%;
+    cursor: pointer;
+    background-color: #008CBA;
+    height:70px;}
+    #b{position:relative;width:100%;height:100%;margin-top:150px;}
+        </style>
+	</head>
+	<body>
+		<div id="info">
+			<h1><img id="h" src="img/h.png"></h1>
+			<section>
+				<p>
+					<br>Foodscan is simple<br><br>Click start to proceed
+				</p>
+			</section>
+		</div>
+			<section style="position:relative; width:100%;background-color:grey;top:20px;">
+				<input id="userSubmit" type="button" value="Start" onclick="templateSelector('camera');"/>
+			</section>
+			<section id="b">
+				<p>
+					<i>Scanning food because its fun &trade;</i><br><br>
+				</p>
+			</section>
+		</body>
+		</template>
+    <template id="cameraInstance">    
+    <head>
+        <title>Foodscan</title>
+        <style>
+		#jumpCamera{border: none;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width: 100%;
+    cursor: pointer;
+    background-color: #008CBA;
+    height:70px;}
+    #cameraTarget{position:relative;width:100%;height:100%;background-color:skyblue;}
+        </style>
+	</head>
+	<body>
+	<!--<input id="jumpCamera" type="button" value="jump camera" onclick="templateSelector('productPage'); backendCall(7611654099246);"/>-->
+	<!--CAMERA PLUGIN-->
+	<script>
+   cordova.plugins.barcodeScanner.scan(
+  	function (result) {
+    if(!result.cancelled)
+    {
+    	//alert("Barcode: " + result.text);
+    	templateSelector('productPage');
+    	backendCall(result.text);
+    }
+    else
+    {
+      alert("You have cancelled scan");
+    }
+  },
+  function (error) {
+      alert("Scanning failed: " + error);
+  }
+);
+	</script>
+	
+	
+	</body>
+	</template>
+    <template id="productPage">
+   <head>
+        <style>
+        body{position:relative;width:95%;height:100%;left:1.5%;margin-top:2%;}
+		#header{position:relative;width:100%;border-style:dotted;}
+		#prodNameDrop{position:relative;width:96%;left:1%;height:70px;border-style:dotted;}
+		h3{position:relative;margin-top:0px;margin-bottom:0px;top:6px;text-align:center;}
+		h4{position:relative;margin-top:0px;margin-bottom:0px;top:6px;text-align:center;size:10px;}
+		#prodImgDrop{position:relative;width:auto;left:1%;height:auto;border-style:dotted;margin-top: 10px;}
+		#ingred{position: relative;width: 50%;height: 100%;display: inline-block;float:right;margin-top: 10px;right:2%;}
+		
+		#bod{position:relative;width:100%;height:100%;border-style:dotted;margin-top: 10px;}
+		#nutrients{position:relative;width:100%;height:100%}
+		
+		#footer{position: relative;width: 100%;height: 70px;top: 10px;}
+		#backToScan{border: none;box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);color: white;padding: 15px 32px;text-align: left;text-decoration: none;display: inline-block;font-size: 16px;width: 115px;cursor: pointer;background-color: #008CBA;height:50px;}
+        </style>
+	</head>
+	<body>
+	
+	<div id="header">
+	
+			<h3 id="prodNameDrop">Product Name Here</h3>
+
+			<img id="prodImgDrop" src=""></img>
+			<section id="ingred">
+<table border="1">
+<tr>
+<td><u>Ingredients</u></td>
+</tr>
+<tr>
+<td id="ingredients"></td>
+</tr>
+</table>
+		</section>
+	</div><!--end header-->
+	
+	<div id="bod">
+		<section id="nutrients">
+<table border="1">
+<tr>
+<td><u>Nutrient Levels</u></td>
+</tr>
+<tr>
+<td>Saturated-fat</td>
+<td id="satfat"></td>
+</tr>
+<tr>
+<td>Sugars</td>
+<td id="sugar"></td>
+</tr>
+<tr>
+<td>Salt</td>
+<td id="salt"></td>
+</tr>
+<tr>
+<td>Fat</td>
+<td id="fat"></td>
+</tr>
+</table>
+		</section>
+
+	</div><!--end bod-->
+	
+	<div id="footer">
+		<section id="back">
+			<input id="backToScan" type="button" value="rescan" onclick="templateSelector('camera');"/>
+		</section>
+	</div><!--end footer-->
+	
+	</body>
+    </template>
+    <template id="productNotFound">
+    	<head>
+    		<style>
+    		body{position:relative;width: 95%;height: 100%;left:2%;margin-top:2%;text-align:center;}
+			#wrap{position:relative;width:100%;height:100%;border-style:dotted;}
+			#nope{position:relative;width:100%;height:50%;}
+			#backToScan{position:relative;border: none;box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);color: white;padding: 15px 32px;text-align: left;text-decoration: none;display: inline-block;font-size: 16px;width: 115px;cursor: pointer;background-color: #008CBA;height:50px;margin-bottom:15px;}
+    		</style>
+		</head>
+		<body>
+			<div id="wrap">
+				<h1>oops...</h1>
+				<img id="nope" src="img/eaten.png"></img>
+				<h1>The product you scanned was not found</h1>
+				<input id="backToScan" type="button" value="rescan" onclick="templateSelector('camera');"/>
+			</div>
+		</body>
+    </template>
+    
+    </head>
+
+
+
+<body onload="templateSelector('home');">
+   
+<div id="templateDropzone">	</div>
+		
+
+
+<!--template loader mediator-->
+<script>
+function templateSelector(temp){	
+	
+	var templateDropzone = document.querySelector("#templateDropzone");
+	var homepage = document.querySelector("#homepage");
+	var cameraInstance = document.querySelector("#cameraInstance");
+	var productPage = document.querySelector("#productPage");
+	var productNotFound = document.querySelector("#productNotFound");
+	
+		while (templateDropzone.firstChild) {
+    		templateDropzone.removeChild(templateDropzone.firstChild);
+			}
+	
+	
+		if(temp=='home'){
+			var cloneTemp = document.importNode(homepage.content, true);
+			templateDropzone.appendChild(cloneTemp);
+			}else if(temp=='camera'){
+				var cloneTemp = document.importNode(cameraInstance.content, true);
+				templateDropzone.appendChild(cloneTemp);
+					}else if(temp=='productPage'){
+						var cloneTemp = document.importNode(productPage.content, true);
+						templateDropzone.appendChild(cloneTemp);
+							}else if(temp=='productNotFound'){
+								var cloneTemp = document.importNode(productNotFound.content, true);
+								templateDropzone.appendChild(cloneTemp);
+							}
+	}
+</script>
+
+<!--communicate with backend-->
+<script>
+function backendCall(barcode){
+	//load barcode into a JSON message
+	var message = '{"barcode":'+ barcode +'}';
+	//prepare AJAX call
+	var xhr = new XMLHttpRequest();
+	//note! IP address same as host backend (same LAN)
+	xhr.open("POST", "http://192.168.0.14:5000/api", true);
+	//xhr.open("POST", "http://localhost:5000/api", true);
+	
+	
+	  xhr.onload = function() {
+    if (xhr.readyState == 4 && xhr.status == 201) {
+    	 data = JSON.parse(xhr.responseText);
+    	 status = data['status'];
+    	 if(status == "product not found"){ 
+    	 		templateSelector('productNotFound');
+    	 	}else if(status == "product found"){
+    			postProduct(data);
+    	 	}
+    	}else{
+    		document.write("SERVER DOWN!");
+    }
+};
+	
+	
+	xhr.setRequestHeader("Content-Type", "application/json");
+	xhr.send(message);
+	
+	
+}
+</script>
+
+<!--Function to place backend response into productPage template-->
+<script>
+function postProduct(data){
+	templateSelector('productPage');
+	var prodName = (data['prodName']);
+	var prodImg = (data['prodImg']);
+	var nutrientLevels = (data['nutrientLevels']);
+		var sat = nutrientLevels['saturated-fat'];
+		var sugar = nutrientLevels['sugars'];
+		var salt = nutrientLevels['salt'];
+		var fat = nutrientLevels['fat'];
+		
+	var ingredients = data['ingredients'];
+		
+	
+	document.getElementById("prodNameDrop").innerHTML=prodName;
+	document.getElementById("prodImgDrop").src=prodImg;
+	document.getElementById("satfat").innerHTML=sat;
+	document.getElementById("sugar").innerHTML=sugar;
+	document.getElementById("salt").innerHTML=salt;
+	document.getElementById("fat").innerHTML=fat;
+	document.getElementById("ingredients").innerHTML=ingredients;
+}
+</script>
+		
+
+
+</body>
+</html>
