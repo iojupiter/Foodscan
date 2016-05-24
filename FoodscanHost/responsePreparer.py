@@ -22,7 +22,7 @@ def subscribeOFFcall():
 	def callback(ch, method, properties, response):
 		#dump the response into local python data structure (dictionary)
 		if (response != ''):
-			pprint(response)
+			#pprint(response)
 			data = json.loads(response)
 			if (data['status_verbose'] == 'product not found'):
 				#return product not found
@@ -30,39 +30,44 @@ def subscribeOFFcall():
 				readyResponse = json.dumps(response)
 				connection.close()
 				publishResponseToFront(readyResponse)
-			else:
-				#extract desired variables to push to UI
-				prodImg = data['product']['image_small_url']
-				print " "
-				print " "
-				print prodImg
-				print " "
-				print " "
-				prodName = data['product']['generic_name']
-				print prodName
-				print " "
-				print " "
-				nutrientLevels = data['product']['nutrient_levels']
-				print nutrientLevels
-				print " "
-				print " "
-				ingredients = data['product']['ingredients_text']
-				print ingredients
-				print " "
-				print " "
-				nutriments = data['product']['nutriments']
-				print nutriments
-				print " "
-				print " "
+			elif (data['status_verbose'] == 'product found'):
+				product = data['product']
+				if 'image_small_url' not in product:
+					prodImg = "unknown"
+				else:
+					prodImg = data['product']['image_small_url']
+				if 'generic_name' not in product:
+					prodName = "unknown"
+				else:
+					prodName = data['product']['generic_name']
+				if 'nutrient_levels' not in product:
+					nutrientLevels = "unknown"
+				else:
+					nutrientLevels = data['product']['nutrient_levels']
+				if 'ingredients_text' not in product:
+					ingredients = "unknown"
+				else:
+					ingredients = data['product']['ingredients_text']
+				if 'allergens_tags' not in product:
+					allergens = "unknown"
+				else:
+					allergens = data ['product']['allergens_tags']
+					print allergens
+					for a in allergens:
+						b = a.split("en:")
+						
+					#better prepare allergies json
+
 				response = {
 						"status": "product found",
 						"prodImg": prodImg,
 						"prodName": prodName,
 						"nutrientLevels": nutrientLevels,
-						"ingredients": ingredients
+						"ingredients": ingredients,
+						"allergens": allergens
 						}
 				readyResponse = json.dumps(response)
-				pprint(readyResponse)
+				#pprint(readyResponse)
 				connection.close()
 				publishResponseToFront(readyResponse)
 
