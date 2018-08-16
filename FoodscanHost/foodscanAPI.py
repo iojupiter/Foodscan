@@ -4,8 +4,10 @@
 This module is responsible for setting up and maintaining a REST API.
 This module listens for HTTP POST requests that contain a JSON object of which a key holds 'barcode'.
 The barcode json object is passed to a publisher that gives it to the rest of the backend.
-This module the blocks the API until it receives a reply from the rest of the backend.
+This module then blocks the API until it receives a reply from the rest of the backend.
 The reply is a json object in every case. Either a product found, or product not found.
+
+pydoc -w
 """
 
 from flask import Flask, jsonify, abort, request
@@ -26,6 +28,8 @@ cors = CORS(app, resources={r"/foo": {"origins": "localhost"}})
 def fetchProduct():
 	"""
 	REST API endpoint using python Flask framework
+	
+	pydoc -w
 	"""
 	if not request.json or not 'barcode' in request.json:
 		abort(400)
@@ -42,6 +46,8 @@ def fetchProduct():
 def publisher2APIgateway(message):
 	"""
 	method publishing to rest of backend
+	
+	pydoc -w
 	"""
 	print "publish to APIgatewayQueue", message
 	#push the barcode message from front end to APIgatewayQueue
@@ -57,6 +63,8 @@ def publisher2APIgateway(message):
 def subscriberToPreparer():
 	"""
 	subscriber for a reply from backend micro-services
+	
+	pydoc -w
 	"""
 	connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
 	channel = connection.channel()

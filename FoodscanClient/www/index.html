@@ -68,8 +68,20 @@
 				<li id="milk" onclick="checkState('milk');">
 					<p>Lait</p>
 				</li>
-				<li id="soya" onclick="checkState('soya');">
+				<li id="soybeans" onclick="checkState('soybeans');">
 					<p>Soya</p>
+				</li>
+				<li id="nuts" onclick="checkState('nuts');">
+					<p>Nuts</p>
+				</li>
+				<li id="mustard" onclick="checkState('mustard');">
+					<p>Mustard</p>
+				</li>
+				<li id="fish" onclick="checkState('fish');">
+					<p>Fish</p>
+				</li>
+				<li id="crustaceans" onclick="checkState('crustaceans');">
+					<p>Crustaceans</p>
 				</li>
 			</ol>
 			</div>
@@ -78,7 +90,7 @@
 			</section>
 		<!--add an allergy-->
 <script>
-var allergies = {"eggs":"0","gluten":"0","milk":"0","soya":"0"};
+var allergies = {"eggs":"0","gluten":"0","milk":"0","soybeans":"0","nuts":"0","mustard":"0","fish":"0","crustaceans":"0",};
 sessionStorage.setItem('allergies', JSON.stringify(allergies));
 
 function checkState(allergy){
@@ -151,12 +163,11 @@ function checkState(allergy){
 		#prodImgDrop{position:relative;width:auto;left:1%;height:auto;border-style:dotted;margin-top: 10px;}
 		#ingred{position: relative;width: 50%;height: 100%;display: inline-block;float:right;margin-top: 10px;right:2%;}
 		
-		#bod{position:relative;width:99%;height:20%;border-style:dotted;margin-top: 10px;}
-		#nutrients{position:relative;width:49%;height:100%;float:left;}
-		#allers{position:relative;width:49%;height:100%;float:left;}
+		#bod{position:relative;width:98%;height:20%;border-style:dotted;margin-top:5px;}
+		ol{position:relative;height:100%;width:100%;float:left;top: -75px;}
+		ol > li{position:relative;height:100%;width:50%;float:left;text-align:center;list-style:none;}
 		
-		#footer{position: relative;width:98%;height: 70px;top: 10px;text-align: center;}
-		#backToScan{border: none;box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);color: white;padding: 15px 32px;text-align: left;text-decoration: none;display: inline-block;font-size: 16px;width: 115px;cursor: pointer;background-color: #008CBA;height:50px;}
+		#userSubmit{border:none;box-shadow:0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);color:white;padding:15px 32px;text-align:center;text-decoration:none;display:inline-block;font-size:16px;width:40%;cursor:pointer;background-color:#008CBA;height:70px}
         </style>
 	</head>
 	<body>
@@ -180,46 +191,49 @@ function checkState(allergy){
 	</div><!--end header-->
 	
 	<div id="bod">
-		<section id="nutrients">
-<table border="1">
-<tr>
-<td><u>Nutrients</u></td>
-</tr>
-<tr>
-<td>Saturated-fat</td>
-<td id="satfat"></td>
-</tr>
-<tr>
-<td>Sugars</td>
-<td id="sugar"></td>
-</tr>
-<tr>
-<td>Salt</td>
-<td id="salt"></td>
-</tr>
-<tr>
-<td>Fat</td>
-<td id="fat"></td>
-</tr>
-</table>
-		</section>
-		<section id="allers">
-<table border="1">
-<tr>
-<td><u>Allergens</u></td>
-</tr>
-<tr>
-<td id="allergens"></td>
-</tr>
-</table>
-		</section>
+		<ol id="ol">
+			<li id="nutrients">
+				<table border="1">
+					<tr>
+						<td><u>Nutrients</u></td>
+					</tr>
+					<tr>
+						<td>Saturated-fat</td>
+						<td id="satfat"></td>
+					</tr>
+					<tr>
+						<td>Sugars</td>
+						<td id="sugar"></td>
+					</tr>
+					<tr>
+						<td>Salt</td>
+						<td id="salt"></td>
+					</tr>
+					<tr>
+						<td>Fat</td>
+						<td id="fat"></td>
+					</tr>
+				</table>
+			</li>
+			<li id="allers">
+				<table border="1">
+					<tr>
+						<td><u>Allergens</u></td>
+					</tr>
+					<tr>
+						<td id="allergens"></td>
+					</tr>
+				</table>
+			</li>
+		</ol>
+	</div>
+
 	</div><!--end bod-->
 	
-	<div id="footer">
-		<section id="back">
-			<input id="backToScan" type="button" value="rescan" onclick="templateSelector('camera');"/>
-		</section>
-	</div><!--end footer-->
+	<section id="back">
+		<input style="float:left;" id="userSubmit" type="button" value="Allergies" onclick="templateSelector('userAllergy');"/>
+		<input style="float:right;" id="userSubmit" type="button" value="Rescan" onclick="templateSelector('camera');"/>
+	</section>
 	
 	</body>
     </template>
@@ -294,7 +308,7 @@ function backendCall(barcode){
 	//prepare AJAX call
 	var xhr = new XMLHttpRequest();
 	//note! IP address same as host backend (same LAN)
-	xhr.open("POST", "http://192.168.0.14:5000/api", true);
+	xhr.open("POST", "http://129.194.246.155:5000/api", true);
 	//xhr.open("POST", "http://localhost:5000/api", true);
 	
 	
@@ -332,7 +346,7 @@ function postProduct(data){
 		var salt = nutrientLevels['salt'];
 		var fat = nutrientLevels['fat'];
 	var allergens = (data['allergens']);
-		
+	
 	var ingredients = data['ingredients'];
 		
 	
@@ -347,19 +361,26 @@ function postProduct(data){
 		document.getElementById("allergens").innerHTML="No allergens found";
 	}else{
 		var allergies = JSON.parse(sessionStorage.getItem('allergies'));
-		userEgg = (allergies['eggs']);
-		userGluten = (allergies['gluten']);
-		userMilk = (allergies['milk']);
-		userSoya = (allergies['soya']);
-		if (userEgg == 1 && allergens[0] == "en:eggs"){
-			document.getElementById("allergens").style.backgroundColor="red";
+		userAllergies = [];
+		for (var key in allergies){
+			if(allergies[key] == 1){
+				userAllergies.push(key);
+			}
 		}
-		document.getElementById("allergens").innerHTML=allergens;
+		for(var i=0;i<allergens.length;i++){
+			for(var j=0;j<userAllergies.length;j++){
+				if(allergens[i] == userAllergies[j]){
+					document.getElementById("allergens").style.backgroundColor="red";
+				}
+			}
+		}
+	
+		for(var i=0;i<allergens.length;i++){
+			var a = document.getElementById("allergens");
+			a.innerHTML= a.innerHTML +" "+ allergens[i];
+		}
 	}
 }
 </script>
-		
-
-
 </body>
 </html>

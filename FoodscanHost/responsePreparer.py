@@ -4,6 +4,8 @@
 This micro-service is responsible for the preparation of a response for the frontend interface
 It does so by extracting require data from the openfoodfacts response and preparing a tailormade json response.
 The response is sent to the foodfactAPI microservice that response the object to the client interface.
+
+pydoc -w
 """
 
 from flask import Flask
@@ -52,19 +54,18 @@ def subscribeOFFcall():
 					allergens = "unknown"
 				else:
 					allergens = data ['product']['allergens_tags']
-					print allergens
+					allergenArray = []
 					for a in allergens:
-						b = a.split("en:")
-						
-					#better prepare allergies json
-
+						y = a[3:]
+						s = y.encode("utf-8")
+						allergenArray.append(s)
 				response = {
 						"status": "product found",
 						"prodImg": prodImg,
 						"prodName": prodName,
 						"nutrientLevels": nutrientLevels,
 						"ingredients": ingredients,
-						"allergens": allergens
+						"allergens": allergenArray
 						}
 				readyResponse = json.dumps(response)
 				#pprint(readyResponse)

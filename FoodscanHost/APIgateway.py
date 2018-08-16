@@ -4,6 +4,8 @@
 This module does nothing other then pass the barcode json object from the client to the rest of the backend.
 This module is here as a provision for scaling the system without breaking the code base.
 This adheres to micro-service application architecture principles.
+
+
 """
 
 from flask import Flask
@@ -17,6 +19,8 @@ def subscribe2API():
 	"""
 	This method subscribes to the foodscanAPI module waiting to treat messages assigned to it.
 	Once a message is received, it passes it to a publisher: publish2apiHandler(barcode).
+	
+
 	"""
 	connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
 	channel = connection.channel()
@@ -40,6 +44,8 @@ def subscribe2API():
 def publish2apiHandler(barcode):
 	"""
 	This publisher passes the barcode json object to the OFFapiHandle.py module that will make the curl request.
+	
+
 	"""
 	connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
 	channel = connection.channel()

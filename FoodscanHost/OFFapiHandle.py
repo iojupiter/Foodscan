@@ -4,6 +4,8 @@
 This micro-service is responsible for making the API call to the open food facts database.
 It does so by listening for a barcode object, decoding it, creating a base query string, initiating the query using Bash cURL.
 The response from the cURL request is encoded as a json object and passed to the frontend via a publisher.
+
+pydoc -w
 """
 
 from flask import Flask
@@ -46,6 +48,7 @@ def subscribeGateway():
 def OFFcaller(query):
 	"""
 	declare terminal command curl http://world.openfoodfacts.org/api/v0/product/+barcode+.json to execute
+	pydoc -w
 	"""
 	OFFquery = "curl "+ query
 	#invoke terminal command
@@ -58,6 +61,7 @@ def OFFcaller(query):
 def passToPreparer(OFFresponse):
 	"""
 	Back to front-end
+	pydoc -w
 	"""
 	connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
 	channel = connection.channel()
