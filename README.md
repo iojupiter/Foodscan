@@ -1,20 +1,27 @@
 # Foodscan
 Cordova app that scans barcodes on food elements and retrieves their nutritional information
 
+# Technologies used
+1. Python Flask
+2. Pika RabbitMQ
+3. Apache Cordova
+4. HTML, CSS, Javascript
+
+# Architecture
 Frontend:
->Cordova
--cordova.plugins.barcodeScanner to scan barcodes
--Javascript template engine that loads UI
+Cordova:
+cordova.plugins.barcodeScanner to scan barcodes
+Javascript template engine that loads UI
 
 Installing
 Enter cordova run android in root directory
 
 Backend:
->Python: 
+Python: 
 -flask for HTTP
 -Pika for message passing
->RabbitMQ
->cURL cmd
+-RabbitMQ
+-cURL cmd
 
 FoodscanAPI.py
 -Sets up a local network (LAN) api access point that the Cordova client can pass data to. (Set ip to computer ip at bottom of method)
