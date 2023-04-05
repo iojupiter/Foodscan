@@ -32,3 +32,5 @@ OFFapiHandler.py
 responsePreparer.py
 -Deconstructs JSON data from world.openfoodfacts.org and reconstructs a JSON data load specific to the applications needs.
 -Passes the ready response back to FoodscanAPI.py which was blocked.
+
+![FoodScan](https://github.com/iojupiter/Foodscan/blob/master/Screenshot%202023-04-05%20at%2015.49.17.png?raw=true)
